@@ -18,16 +18,13 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Grant execute permission for gradlew (if present)
-        run: chmod +x ./gradlew || true
+      - name: Set up Gradle 8.1.1
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 8.1.1
 
       - name: Build with Gradle
-        run: |
-          if [ -f "./gradlew" ]; then
-            ./gradlew build --no-daemon
-          else
-            gradle build --no-daemon
-          fi
+        run: gradle build --no-daemon
 
       - name: Upload noescape.jar
         uses: actions/upload-artifact@v4
